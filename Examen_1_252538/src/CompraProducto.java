@@ -1,11 +1,7 @@
 
 import Controlador.CompraController;
 import Modelo.Producto;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+import java.util.Scanner;
 
 /**
  *
@@ -16,23 +12,71 @@ public class CompraProducto {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
-         CompraController controller = new CompraController();
-         
-         // Agregar productos
-        controller.agregarProducto(new Producto("CLINIQUE Lip Gloss #Black Honey", 499.0));
-        controller.agregarProducto(new Producto("CLINIQUE Lip Balm #Black Honey", 499.0));
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        CompraController controller = new CompraController();
 
+        System.out.println("=== BIENVENIDO A LA TIENDA ===");
 
-        System.out.println(controller.mostrarCarrito());
+        //Mostrar catalogo
+        System.out.println("\nCatalogo de productos:");
+        int i = 1;
+        for (Producto p : controller.getCatalogo()) {
+            System.out.println(i + ". " + p.getNombre() + " - $" + p.getPrecio());
+            i++;
+        }
+
+        //Seleccionar productos
+        String opcion;
+        do {
+            System.out.print("\nSeleccione el numero del producto (o 0 para terminar): ");
+            int seleccion = sc.nextInt();
+            if (seleccion > 0 && seleccion <= controller.getCatalogo().size()) {
+                Producto elegido = controller.getCatalogo().get(seleccion - 1);
+
+                //Cantidad
+                System.out.print("Ingrese cantidad: ");
+                int cantidad = sc.nextInt();
+
+                // Agregar el producto la cantidad de veces indicada
+                for (int j = 0; j < cantidad; j++) {
+                    controller.agregarProducto(elegido);
+                }
+
+                System.out.println("Producto agregado: " + elegido.getNombre() + " x" + cantidad);
+                System.out.println("\nCarrito actual:");
+                System.out.println(controller.mostrarCarrito());
+            }
+            System.out.print("¿Desea agregar otro producto? (s/n): ");
+            opcion = sc.next();
+        } while (opcion.equalsIgnoreCase("s"));
 
         // Ingresar tarjeta
-        controller.setTarjeta("1234567812345678");
-        System.out.println(controller.mostrarDatosTarjeta());
+        System.out.print("\nIngrese numero de tarjeta (16 digitos): ");
+        String numeroTarjeta = sc.next();
+        controller.setTarjeta(numeroTarjeta);
 
-        // Pagar
-        System.out.println(controller.pagar());
+        if (controller.validarTarjeta()) {
+            System.out.println("\nDatos de la tarjeta:");
+            System.out.println(controller.mostrarDatosTarjeta());
+        } else {
+            System.out.println("Numero de tarjeta invalido. Terminando compra...");
+            return;
+        }
+
+        //Confirmar pago
+        System.out.print("\n¿Desea confirmar la compra? (s/n): ");
+        String pagar = sc.next();
+        if (pagar.equalsIgnoreCase("s")) {
+            String ticket = controller.pagar();
+            System.out.println("\n=== COMPRA REALIZADA ===");
+            System.out.println(ticket);
+        } else {
+            System.out.println("COMPRA CANCELADA.");
+        }
+
+        sc.close();
     }
-    
 }
+    
+

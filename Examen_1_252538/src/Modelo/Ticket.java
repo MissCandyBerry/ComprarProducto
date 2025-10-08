@@ -27,7 +27,7 @@ public class Ticket {
         sb.append("Pago con tarjeta:\n");
         sb.append("Banco: ").append(tarjeta.getBanco()).append("\n");
         sb.append("Ciudad: ").append(tarjeta.getCiudad()).append("\n");
-        sb.append("Número: ").append(tarjeta.getNumero()).append("\n");
+        sb.append("Numero: ").append(tarjeta.getNumero()).append("\n");
         sb.append("============================\n");
         return sb.toString();
     }

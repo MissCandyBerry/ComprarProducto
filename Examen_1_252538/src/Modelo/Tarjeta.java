@@ -17,7 +17,6 @@ public class Tarjeta {
     }
 
     public boolean validar() {
-        // Validación simple: longitud de 16 dígitos
         return numero != null && numero.length() == 16;
     }
 
