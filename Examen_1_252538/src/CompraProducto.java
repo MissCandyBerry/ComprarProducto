@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author dulce
+ * @author dulce 252538
  */
 public class CompraProducto {
 
