@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  * @author dulce 252538
  */
-public class CompraProducto {
+public class CompraView {
 
     /**
      * @param args the command line arguments
@@ -47,7 +47,7 @@ public class CompraProducto {
                 System.out.println("\nCarrito actual:");
                 System.out.println(controller.mostrarCarrito());
             }
-            System.out.print("¿Desea agregar otro producto? (s/n): ");
+            System.out.print("Desea agregar otro producto? (s/n): ");
             opcion = sc.next();
         } while (opcion.equalsIgnoreCase("s"));
 
@@ -65,7 +65,7 @@ public class CompraProducto {
         }
 
         //Confirmar pago
-        System.out.print("\n¿Desea confirmar la compra? (s/n): ");
+        System.out.print("\nDesea confirmar la compra? (s/n): ");
         String pagar = sc.next();
         if (pagar.equalsIgnoreCase("s")) {
             String ticket = controller.pagar();
